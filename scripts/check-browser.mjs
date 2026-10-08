@@ -16,19 +16,22 @@ async function check(name, task) {
 }
 async function loadImages(page) {
   for (const image of await page.locator('img').all()) {
-    // Images hidden by design at this breakpoint (e.g. the hero card) are skipped.
     if (!(await image.isVisible())) continue;
     await image.scrollIntoViewIfNeeded();
     await image.evaluate(async element => { try { await element.decode(); } catch { /* asserted below */ } });
   }
 }
-async function scrollThrough(page) {
+async function scrollThrough(page, step = 300) {
   const height = await page.evaluate(() => document.documentElement.scrollHeight);
-  for (let top = 0; top < height; top += 400) {
+  for (let top = 0; top < height; top += step) {
     await page.evaluate(y => scrollTo({ top: y, behavior: 'instant' }), top);
     await page.waitForTimeout(60);
   }
 }
+const scrollToSelector = (page, selector, offset = 0) => page.evaluate(([s, o]) => {
+  const element = document.querySelector(s);
+  scrollTo({ top: element.getBoundingClientRect().top + scrollY + o, behavior: 'instant' });
+}, [selector, offset]);
 
 try {
   for (const width of [320, 390, 768, 1024, 1440, 1920]) {
@@ -37,11 +40,9 @@ try {
       const page = await context.newPage();
       const errors = [];
       const failedRequests = [];
-      const requests = [];
       page.on('pageerror', error => errors.push(error.message));
       page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
       page.on('response', response => { if (response.status() >= 400) failedRequests.push({ url: response.url(), status: response.status() }); });
-      page.on('request', request => requests.push(request.url()));
       await page.goto(base, { waitUntil: 'networkidle' });
       await loadImages(page);
       const layout = await page.evaluate(() => ({
@@ -51,18 +52,19 @@ try {
         brokenImages: [...document.images].filter(image => image.checkVisibility() && (!image.complete || image.naturalWidth === 0)).map(image => image.currentSrc || image.src),
         emptyLinks: [...document.querySelectorAll('a')].filter(link => !link.getAttribute('href') || link.getAttribute('href') === '#').map(link => link.textContent),
         // Inline links inside sentences are exempt from WCAG 2.5.8.
-        smallTargets: [...document.querySelectorAll('main a, main button, header a, header button')].filter(element => element.checkVisibility({ checkVisibilityCSS: true }) && !element.closest('p')).filter(element => {
+        smallTargets: [...document.querySelectorAll('main a, main button, header a, header button, footer a')].filter(element => element.checkVisibility({ checkVisibilityCSS: true }) && !element.closest('p')).filter(element => {
           const box = element.getBoundingClientRect();
           return box.width > 0 && box.height > 0 && (box.width < 24 || box.height < 24);
         }).map(element => element.textContent?.trim()),
+        heroTitleOverflow: (() => { const line = document.querySelector('.ht-move'); return line ? Math.round(line.getBoundingClientRect().right - innerWidth) : 0; })(),
       }));
       expect(layout.documentWidth).toBeLessThanOrEqual(width);
+      expect(layout.heroTitleOverflow).toBeLessThanOrEqual(0);
       expect(layout.brokenImages).toEqual([]);
       expect(layout.emptyLinks).toEqual([]);
       expect(layout.smallTargets).toEqual([]);
       expect(errors).toEqual([]);
       expect(failedRequests).toEqual([]);
-      expect(requests.filter(url => url.endsWith('.mp4'))).toEqual([]);
       expect(await page.locator('h1').count()).toBe(1);
       await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
       await page.screenshot({ path: `${output}/${width}-full.png`, fullPage: true });
@@ -82,8 +84,6 @@ try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
     await page.goto(base, { waitUntil: 'networkidle' });
     const toggle = page.getByRole('button', { name: 'Menü öffnen' });
-    const box = await toggle.boundingBox();
-    expect(box.x + box.width).toBeGreaterThan(330);
     await toggle.click();
     await expect(page.getByRole('button', { name: 'Menü schließen' })).toHaveAttribute('aria-expanded', 'true');
     expect(await page.locator('main').evaluate(main => main.inert)).toBe(true);
@@ -95,22 +95,43 @@ try {
     await expect(toggle).toBeFocused();
     await expect(page.locator('#mobile-menu')).toBeHidden();
     await toggle.click();
-    await page.locator('#mobile-menu a[href="#angebote"]').click();
+    await page.locator('#mobile-menu a[href="#studien"]').click();
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    expect(new URL(page.url()).hash).toBe('#angebote');
-    expect(await page.locator('body').evaluate(body => body.classList.contains('menu-open'))).toBe(false);
+    expect(new URL(page.url()).hash).toBe('#studien');
     expect(await page.locator('main').evaluate(main => main.inert)).toBe(false);
     await page.close();
   });
 
-  await check('Desktop navigation highlights the current section', async () => {
+  await check('Desktop navigation marks the current section', async () => {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
     await page.goto(base, { waitUntil: 'networkidle' });
-    await page.locator('#studio').scrollIntoViewIfNeeded();
-    await page.evaluate(() => { const studio = document.querySelector('#studio'); scrollTo({ top: studio.offsetTop + 200, behavior: 'instant' }); });
-    await expect(page.locator('.nav a[href="#studio"]')).toHaveAttribute('aria-current', 'true');
-    await expect(page.locator('.nav-indicator')).toHaveClass(/is-on/);
+    await scrollToSelector(page, '#ort', 300);
+    await expect(page.locator('.nav a[href="#ort"]')).toHaveAttribute('aria-current', 'true');
     await expect(page.locator('[data-header]')).toHaveClass(/is-scrolled/);
+    await page.close();
+  });
+
+  await check('Choosing a movement isolates its frames and carries into the request', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+    await page.goto(base, { waitUntil: 'networkidle' });
+    const reformer = page.locator('.pick-chip[data-world="reformer"]');
+    await reformer.click();
+    await expect(reformer).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-strip]')).toHaveClass(/is-filtering/);
+    expect(await page.locator('.strip .frame.is-on').count()).toBe(4);
+    await expect(page.locator('[data-pick-status]')).toContainText('Reformer Pilates');
+    await expect(page.getByRole('checkbox', { name: 'Reformer Pilates' })).toBeChecked();
+    expect(decodeURIComponent(await page.locator('[data-planner-send]').getAttribute('href'))).toContain('subject=Probetraining: Reformer Pilates');
+    // Unticking in the record releases the choice on the first plate too.
+    await page.getByRole('checkbox', { name: 'Reformer Pilates' }).uncheck();
+    await expect(reformer).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('[data-strip]')).not.toHaveClass(/is-filtering/);
+    // A plate's action preselects its world and leads to the request.
+    // The last plate is never covered by another one.
+    await scrollToSelector(page, '#kurse', -100);
+    await page.locator('#kurse [data-pick]').click();
+    await expect(page.getByRole('checkbox', { name: 'Kurse', exact: true })).toBeChecked();
+    expect(new URL(page.url()).hash).toBe('#anfrage');
     await page.close();
   });
 
@@ -127,14 +148,14 @@ try {
     await page.close();
   });
 
-  await check('Request planner builds a complete e-mail and is keyboard operable', async () => {
+  await check('Request record builds a complete e-mail and is keyboard operable', async () => {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
     await page.goto(base, { waitUntil: 'networkidle' });
     const send = page.locator('[data-planner-send]');
     expect(await send.getAttribute('href')).toBe('mailto:hallo@lemovisports.de?subject=Probetraining%20bei%20Lemovi%20Sports&body=' + encodeURIComponent('Hallo Lemovi-Team,\r\n\r\nich möchte gern ein Probetraining machen.\r\n\r\nBitte meldet euch bei mir, damit wir einen Termin abstimmen können.\r\n\r\nViele Grüße'));
     await page.getByRole('checkbox', { name: 'Reformer Pilates' }).focus();
     await page.keyboard.press('Space');
-    await page.getByLabel('Kurse', { exact: true }).check();
+    await page.getByRole('checkbox', { name: 'Kurse', exact: true }).check();
     await page.getByRole('radio', { name: 'Abends' }).check();
     await page.getByLabel(/Dein Vorname/).fill('Maria');
     const href = decodeURIComponent(await send.getAttribute('href'));
@@ -147,74 +168,71 @@ try {
     return { href };
   });
 
-  await check('Reduced-motion video is opt-in and remains controllable', async () => {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
-    const videoRequests = [];
-    page.on('request', request => { if (request.url().endsWith('.mp4')) videoRequests.push(request.url()); });
-    await page.goto(base, { waitUntil: 'networkidle' });
-    const video = page.locator('#hero-video');
-    expect(await video.evaluate(element => element.getAttribute('src'))).toBe(null);
-    expect(videoRequests).toEqual([]);
-    await page.getByRole('button', { name: 'Video abspielen' }).click();
-    await page.waitForFunction(() => { const element = document.querySelector('video'); return element && !element.paused && element.readyState >= 3; });
-    await expect(page.getByRole('button', { name: 'Video pausieren' })).toHaveAttribute('aria-pressed', 'true');
-    await video.screenshot({ path: `${output}/generated-video-frame.png` });
-    await page.getByRole('button', { name: 'Video pausieren' }).click();
-    expect(await video.evaluate(element => element.paused)).toBe(true);
-    await page.getByRole('button', { name: 'Video abspielen' }).click();
-    await page.locator('#kontakt').scrollIntoViewIfNeeded();
-    await page.waitForFunction(() => document.querySelector('video').paused);
-    expect(await video.evaluate(element => element.muted && element.playsInline && element.loop)).toBe(true);
-    await page.close();
-    return { videoRequests: videoRequests.length };
-  });
-
-  await check('Motion: reveals, scenes and autoplay behave while scrolling', async () => {
+  await check('Motion: exposure, developing frames, stacked plates and traces', async () => {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
     await page.goto(base, { waitUntil: 'networkidle' });
-    await page.waitForFunction(() => { const element = document.querySelector('video'); return element && !element.paused; }, null, { timeout: 8000 });
+    await expect(page.locator('[data-exposure]')).toHaveClass(/is-exposed/);
+    await expect(page.locator('[data-strip]')).toHaveClass(/is-developed/);
+    // Plates stick one bar lower than the one before.
+    const tops = await page.locator('.plate').evaluateAll(plates => plates.map(plate => [getComputedStyle(plate).position, parseFloat(getComputedStyle(plate).top)]));
+    expect(tops.every(([position]) => position === 'sticky')).toBe(true);
+    expect(tops[1][1]).toBeGreaterThan(tops[0][1]);
+    expect(tops[2][1]).toBeGreaterThan(tops[1][1]);
+    await scrollToSelector(page, '#kurse', -120);
+    await page.mouse.wheel(0, 2);
+    await page.waitForTimeout(500);
+    const stack = await page.locator('.plate').evaluateAll(plates => plates.map(plate => ({ cover: Number(plate.style.getPropertyValue('--cover')), covered: plate.classList.contains('is-covered') })));
+    expect(stack[0].covered).toBe(true);
+    expect(stack[0].cover).toBeGreaterThan(0.9);
+    expect(stack[2].covered).toBe(false);
+    await page.screenshot({ path: `${output}/motion-stack.png` });
     await scrollThrough(page);
-    await page.waitForTimeout(400);
+    await page.waitForTimeout(600);
     const state = await page.evaluate(() => ({
-      hidden: [...document.querySelectorAll('[data-reveal]')].filter(element => !element.classList.contains('is-in')).length,
-      litWords: document.querySelectorAll('[data-words] .w.is-lit').length,
-      words: document.querySelectorAll('[data-words] .w').length,
-      unveil: getComputedStyle(document.querySelector('[data-unveil]')).getPropertyValue('--u').trim(),
-      videoPaused: document.querySelector('video').paused,
+      sheetMarked: document.querySelector('[data-sheet]').classList.contains('is-marked'),
+      undeveloped: [...document.querySelectorAll('.tframe[data-develop], .plate-main[data-develop]')].filter(element => !element.classList.contains('is-developed')).length,
+      weeksProgress: Number(document.querySelector('.weeks-plate').style.getPropertyValue('--p')),
+      weeksReached: document.querySelectorAll('.weeks-frames li.is-reached').length,
     }));
-    expect(state.hidden).toBe(0);
-    expect(state.words).toBeGreaterThan(10);
-    expect(state.litWords).toBe(state.words);
-    expect(Number(state.unveil)).toBe(1);
-    expect(state.videoPaused).toBe(true);
+    expect(state.sheetMarked).toBe(true);
+    expect(state.undeveloped).toBe(0);
+    expect(state.weeksProgress).toBe(1);
+    expect(state.weeksReached).toBe(12);
     expect(errors).toEqual([]);
     await page.close();
     return state;
   });
 
-  await check('Carousel buttons move the motifs', async () => {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
-    await page.goto(base, { waitUntil: 'networkidle' });
-    const track = page.locator('[data-pace]');
-    await track.scrollIntoViewIfNeeded();
-    await expect(page.getByRole('button', { name: 'Vorheriges Motiv' })).toHaveAttribute('aria-disabled', 'true');
-    await page.getByRole('button', { name: 'Nächstes Motiv' }).click();
-    await page.waitForFunction(() => document.querySelector('[data-pace]').scrollLeft > 100);
-    await expect(page.getByRole('button', { name: 'Vorheriges Motiv' })).toHaveAttribute('aria-disabled', 'false');
+  await check('Phones stack the plates without hiding the end of a plate', async () => {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await page.goto(base, { waitUntil: 'load' });
+    await page.waitForTimeout(300);
+    const plates = page.locator('.plate');
+    for (let index = 0; index < 2; index++) {
+      // Scroll until the next plate is about to cover this one: the end of this plate must be on screen.
+      await page.evaluate(i => {
+        const next = document.querySelectorAll('.plate')[i + 1];
+        scrollTo({ top: next.getBoundingClientRect().top + scrollY - innerHeight + 4, behavior: 'instant' });
+      }, index);
+      await page.waitForTimeout(150);
+      const box = await plates.nth(index).boundingBox();
+      expect(box.y + box.height).toBeLessThanOrEqual(844);
+      expect(box.y).toBeGreaterThan(0);
+    }
     await page.close();
   });
 
-  await check('Sticky mobile call to action appears after the hero and yields to the contact section', async () => {
+  await check('Sticky mobile call to action appears after the hero and yields to the request', async () => {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
     await page.goto(base, { waitUntil: 'networkidle' });
     const sticky = page.locator('.sticky-cta');
     await expect(sticky).toBeHidden();
     await page.evaluate(() => scrollTo({ top: innerHeight * 1.6, behavior: 'instant' }));
     await expect(sticky).toBeVisible();
-    await expect(sticky.getByRole('link', { name: 'Probetraining anfragen' })).toHaveAttribute('href', '#kontakt');
+    await expect(sticky.getByRole('link', { name: 'Probetraining anfragen' })).toHaveAttribute('href', '#anfrage');
     await page.locator('#anfrage').scrollIntoViewIfNeeded();
     await expect(sticky).toBeHidden();
     await page.close();
@@ -224,24 +242,28 @@ try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
     await page.goto(base, { waitUntil: 'networkidle' });
     await expect(page.locator('h1')).toBeVisible();
-    await expect(page.locator('.nav a[href="#angebote"]')).toBeVisible();
+    await expect(page.locator('.nav a[href="#studien"]')).toBeVisible();
     await expect(page.locator('.menu-toggle')).toBeHidden();
-    await expect(page.locator('.video-toggle')).toBeHidden();
-    await expect(page.locator('.planner-fields')).toBeHidden();
+    await expect(page.locator('.record-fields')).toBeHidden();
     await expect(page.locator('[data-planner-send]')).toHaveAttribute('href', /^mailto:hallo@lemovisports\.de/);
+    expect(await page.locator('.strip .frame img').first().evaluate(image => getComputedStyle(image).filter)).toBe('none');
+    expect(await page.locator('.ht-ghost').first().evaluate(element => Number(getComputedStyle(element).opacity))).toBe(1);
     await page.locator('details summary').first().click();
     await expect(page.locator('details').first().locator('.answer')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.close();
   });
 
-  await check('Reduced motion disables automatic decorative motion', async () => {
-    const page = await browser.newPage({ reducedMotion: 'reduce' });
+  await check('Reduced motion keeps everything still and complete', async () => {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
     await page.goto(base, { waitUntil: 'networkidle' });
-    expect(await page.locator('h1 .line > span').first().evaluate(element => getComputedStyle(element).animationName)).toBe('none');
-    expect(await page.locator('[data-hero-media]').evaluate(element => getComputedStyle(element).transform)).toBe('none');
-    expect(await page.locator('video').evaluate(element => element.paused)).toBe(true);
-    expect(await page.evaluate(() => document.documentElement.classList.contains('reveal-on'))).toBe(false);
+    expect(await page.evaluate(() => document.documentElement.classList.contains('motion-ok'))).toBe(false);
+    expect(await page.locator('.strip .frame img').first().evaluate(image => getComputedStyle(image).filter)).toBe('none');
+    expect(await page.locator('.ht-word').evaluate(element => getComputedStyle(element).transform)).toBe('none');
+    await scrollToSelector(page, '#kurse', -120);
+    await page.waitForTimeout(200);
+    expect(await page.locator('.plate-inner').first().evaluate(element => getComputedStyle(element).transform)).toBe('none');
+    expect(await page.locator('.weeks-trace path').evaluate(path => getComputedStyle(path).strokeDashoffset)).toBe('0px');
     await page.close();
   });
 

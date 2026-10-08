@@ -1,0 +1,485 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T18:11:26.648Z",
+  "title": "Design System: Lemovi Sports",
+  "extensions": {
+    "colorMeta": {
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphit",
+        "canonical": "#1a191c",
+        "oklch": "oklch(21.6% 0.006 301.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 301.0)",
+          "oklch(26.0% 0.006 301.0)",
+          "oklch(37.0% 0.006 301.0)",
+          "oklch(48.0% 0.006 301.0)",
+          "oklch(60.0% 0.006 301.0)",
+          "oklch(72.0% 0.006 301.0)",
+          "oklch(84.0% 0.006 301.0)",
+          "oklch(95.0% 0.006 301.0)"
+        ]
+      },
+      "graphite-plate": {
+        "role": "neutral",
+        "displayName": "Tafelgraphit",
+        "canonical": "#232226",
+        "oklch": "oklch(25.5% 0.008 297.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 297.3)",
+          "oklch(26.0% 0.008 297.3)",
+          "oklch(37.0% 0.008 297.3)",
+          "oklch(48.0% 0.008 297.3)",
+          "oklch(60.0% 0.008 297.3)",
+          "oklch(72.0% 0.008 297.3)",
+          "oklch(84.0% 0.008 297.3)",
+          "oklch(95.0% 0.008 297.3)"
+        ]
+      },
+      "graphite-raised": {
+        "role": "neutral",
+        "displayName": "Graphit hell",
+        "canonical": "#2e2d32",
+        "oklch": "oklch(30.0% 0.009 295.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.009 295.0)",
+          "oklch(26.0% 0.009 295.0)",
+          "oklch(37.0% 0.009 295.0)",
+          "oklch(48.0% 0.009 295.0)",
+          "oklch(60.0% 0.009 295.0)",
+          "oklch(72.0% 0.009 295.0)",
+          "oklch(84.0% 0.009 295.0)",
+          "oklch(95.0% 0.009 295.0)"
+        ]
+      },
+      "chalk": {
+        "role": "neutral",
+        "displayName": "Kreide",
+        "canonical": "#eeebe4",
+        "oklch": "oklch(94.0% 0.010 87.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 87.5)",
+          "oklch(26.0% 0.010 87.5)",
+          "oklch(37.0% 0.010 87.5)",
+          "oklch(48.0% 0.010 87.5)",
+          "oklch(60.0% 0.010 87.5)",
+          "oklch(72.0% 0.010 87.5)",
+          "oklch(84.0% 0.010 87.5)",
+          "oklch(95.0% 0.010 87.5)"
+        ]
+      },
+      "chalk-soft": {
+        "role": "neutral",
+        "displayName": "Kreide weich",
+        "canonical": "#bdb8ae",
+        "oklch": "oklch(78.4% 0.015 84.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.015 84.6)",
+          "oklch(26.0% 0.015 84.6)",
+          "oklch(37.0% 0.015 84.6)",
+          "oklch(48.0% 0.015 84.6)",
+          "oklch(60.0% 0.015 84.6)",
+          "oklch(72.0% 0.015 84.6)",
+          "oklch(84.0% 0.015 84.6)",
+          "oklch(95.0% 0.015 84.6)"
+        ]
+      },
+      "chalk-muted": {
+        "role": "neutral",
+        "displayName": "Kreide matt",
+        "canonical": "#918c84",
+        "oklch": "oklch(64.2% 0.013 79.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.013 79.8)",
+          "oklch(26.0% 0.013 79.8)",
+          "oklch(37.0% 0.013 79.8)",
+          "oklch(48.0% 0.013 79.8)",
+          "oklch(60.0% 0.013 79.8)",
+          "oklch(72.0% 0.013 79.8)",
+          "oklch(84.0% 0.013 79.8)",
+          "oklch(95.0% 0.013 79.8)"
+        ]
+      },
+      "baryta": {
+        "role": "neutral",
+        "displayName": "Barytpapier",
+        "canonical": "#f1f0eb",
+        "oklch": "oklch(95.5% 0.007 97.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 97.4)",
+          "oklch(26.0% 0.007 97.4)",
+          "oklch(37.0% 0.007 97.4)",
+          "oklch(48.0% 0.007 97.4)",
+          "oklch(60.0% 0.007 97.4)",
+          "oklch(72.0% 0.007 97.4)",
+          "oklch(84.0% 0.007 97.4)",
+          "oklch(95.0% 0.007 97.4)"
+        ]
+      },
+      "baryta-shade": {
+        "role": "neutral",
+        "displayName": "Papierschatten",
+        "canonical": "#e4e2db",
+        "oklch": "oklch(91.2% 0.010 93.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 93.6)",
+          "oklch(26.0% 0.010 93.6)",
+          "oklch(37.0% 0.010 93.6)",
+          "oklch(48.0% 0.010 93.6)",
+          "oklch(60.0% 0.010 93.6)",
+          "oklch(72.0% 0.010 93.6)",
+          "oklch(84.0% 0.010 93.6)",
+          "oklch(95.0% 0.010 93.6)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinte",
+        "canonical": "#141317",
+        "oklch": "oklch(19.0% 0.008 297.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 297.1)",
+          "oklch(26.0% 0.008 297.1)",
+          "oklch(37.0% 0.008 297.1)",
+          "oklch(48.0% 0.008 297.1)",
+          "oklch(60.0% 0.008 297.1)",
+          "oklch(72.0% 0.008 297.1)",
+          "oklch(84.0% 0.008 297.1)",
+          "oklch(95.0% 0.008 297.1)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Tinte weich",
+        "canonical": "#4d4a52",
+        "oklch": "oklch(41.5% 0.014 302.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.014 302.8)",
+          "oklch(26.0% 0.014 302.8)",
+          "oklch(37.0% 0.014 302.8)",
+          "oklch(48.0% 0.014 302.8)",
+          "oklch(60.0% 0.014 302.8)",
+          "oklch(72.0% 0.014 302.8)",
+          "oklch(84.0% 0.014 302.8)",
+          "oklch(95.0% 0.014 302.8)"
+        ]
+      },
+      "film-black": {
+        "role": "neutral",
+        "displayName": "Filmschwarz",
+        "canonical": "#0d0c0f",
+        "oklch": "oklch(15.7% 0.006 300.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 300.8)",
+          "oklch(26.0% 0.006 300.8)",
+          "oklch(37.0% 0.006 300.8)",
+          "oklch(48.0% 0.006 300.8)",
+          "oklch(60.0% 0.006 300.8)",
+          "oklch(72.0% 0.006 300.8)",
+          "oklch(84.0% 0.006 300.8)",
+          "oklch(95.0% 0.006 300.8)"
+        ]
+      },
+      "lemovi-red": {
+        "role": "primary",
+        "displayName": "Lemovi-Rot",
+        "canonical": "#e84048",
+        "oklch": "oklch(62.2% 0.204 23.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.200 23.0)",
+          "oklch(26.0% 0.200 23.0)",
+          "oklch(37.0% 0.200 23.0)",
+          "oklch(48.0% 0.200 23.0)",
+          "oklch(60.0% 0.200 23.0)",
+          "oklch(72.0% 0.200 23.0)",
+          "oklch(84.0% 0.200 23.0)",
+          "oklch(95.0% 0.200 23.0)"
+        ]
+      },
+      "action-red": {
+        "role": "primary",
+        "displayName": "Aktionsrot",
+        "canonical": "#d32f3a",
+        "oklch": "oklch(56.9% 0.199 23.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.199 23.2)",
+          "oklch(26.0% 0.199 23.2)",
+          "oklch(37.0% 0.199 23.2)",
+          "oklch(48.0% 0.199 23.2)",
+          "oklch(60.0% 0.199 23.2)",
+          "oklch(72.0% 0.199 23.2)",
+          "oklch(84.0% 0.199 23.2)",
+          "oklch(95.0% 0.199 23.2)"
+        ]
+      },
+      "action-red-deep": {
+        "role": "primary",
+        "displayName": "Aktionsrot tief",
+        "canonical": "#a91f2a",
+        "oklch": "oklch(47.9% 0.172 23.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.172 23.2)",
+          "oklch(26.0% 0.172 23.2)",
+          "oklch(37.0% 0.172 23.2)",
+          "oklch(48.0% 0.172 23.2)",
+          "oklch(60.0% 0.172 23.2)",
+          "oklch(72.0% 0.172 23.2)",
+          "oklch(84.0% 0.172 23.2)",
+          "oklch(95.0% 0.172 23.2)"
+        ]
+      },
+      "reformer-lilac": {
+        "role": "secondary",
+        "displayName": "Reformer-Flieder",
+        "canonical": "#b7a1ef",
+        "oklch": "oklch(75.7% 0.112 296.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.112 296.6)",
+          "oklch(26.0% 0.112 296.6)",
+          "oklch(37.0% 0.112 296.6)",
+          "oklch(48.0% 0.112 296.6)",
+          "oklch(60.0% 0.112 296.6)",
+          "oklch(72.0% 0.112 296.6)",
+          "oklch(84.0% 0.112 296.6)",
+          "oklch(95.0% 0.112 296.6)"
+        ]
+      },
+      "gym-amber": {
+        "role": "secondary",
+        "displayName": "Gym-Amber",
+        "canonical": "#efb049",
+        "oklch": "oklch(79.8% 0.138 76.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.138 76.5)",
+          "oklch(26.0% 0.138 76.5)",
+          "oklch(37.0% 0.138 76.5)",
+          "oklch(48.0% 0.138 76.5)",
+          "oklch(60.0% 0.138 76.5)",
+          "oklch(72.0% 0.138 76.5)",
+          "oklch(84.0% 0.138 76.5)",
+          "oklch(95.0% 0.138 76.5)"
+        ]
+      },
+      "course-green": {
+        "role": "secondary",
+        "displayName": "Kurs-Grün",
+        "canonical": "#57cf8c",
+        "oklch": "oklch(76.9% 0.146 156.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.146 156.0)",
+          "oklch(26.0% 0.146 156.0)",
+          "oklch(37.0% 0.146 156.0)",
+          "oklch(48.0% 0.146 156.0)",
+          "oklch(60.0% 0.146 156.0)",
+          "oklch(72.0% 0.146 156.0)",
+          "oklch(84.0% 0.146 156.0)",
+          "oklch(95.0% 0.146 156.0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Frage",
+        "purpose": "Nur die Hero-Frage; Mehrfachbelichtung auf „bewegt“."
+      },
+      "headline": {
+        "displayName": "Abschnittstitel",
+        "purpose": "Titel jedes Abschnitts."
+      },
+      "title": {
+        "displayName": "Tafel-Titel",
+        "purpose": "Breite Namen der drei Welten in den Stapel-Reitern."
+      },
+      "body": {
+        "displayName": "Text",
+        "purpose": "Fließtext und Formulare."
+      },
+      "label": {
+        "displayName": "Frame-Label",
+        "purpose": "Frame-Nummern und -Beschriftungen, Footer-Labels."
+      },
+      "price": {
+        "displayName": "Preis",
+        "purpose": "Preise in der Weltfarbe, tabellarische Ziffern."
+      }
+    },
+    "shadows": [
+      {
+        "name": "plate-lift",
+        "value": "0 -18px 40px -22px rgb(0 0 0 / 0.75)",
+        "purpose": "Kante einer Tafel, die über die vorige gleitet."
+      },
+      {
+        "name": "record-lift",
+        "value": "0 34px 70px -34px rgb(0 0 0 / 0.85)",
+        "purpose": "Anfrage-Protokoll auf Papier über Graphit."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Einzige Easing-Familie für Ankünfte, Belichtung und Zustände."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "Fettstift-Schleifen."
+      },
+      {
+        "name": "exposure",
+        "value": "0.9s",
+        "purpose": "Hero-Mehrfachbelichtung und Entwickeln der Bildleiste (80 ms Versatz je Frame)."
+      },
+      {
+        "name": "develop",
+        "value": "1.1s",
+        "purpose": "Frames werden beim Erreichen farbig."
+      },
+      {
+        "name": "shutter",
+        "value": "0.5s",
+        "purpose": "Hover-Verschluss der Hauptaktion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "760px"
+      },
+      {
+        "name": "tablet",
+        "value": "900px"
+      },
+      {
+        "name": "nav",
+        "value": "1080px"
+      },
+      {
+        "name": "hero-split",
+        "value": "1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Hauptaktion; ein tieferes Rot schließt beim Hover wie ein Verschluss.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Probetraining anfragen <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12h15M13 5l7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-primary{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;gap:.65rem;min-height:48px;padding:.75rem 1.25rem;border-radius:2px;background:var(--red-action, #d32f3a);color:#fff;font:600 1rem/1.15 Archivo,system-ui,sans-serif;text-decoration:none}.ds-btn-primary::before{content:\"\";position:absolute;inset:0;z-index:-1;background:var(--red-deep, #a91f2a);clip-path:inset(0 100% 0 0);transition:clip-path .5s cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover::before{clip-path:inset(0 0 0 0)}.ds-btn-primary svg{transition:transform .45s cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover svg{transform:translateX(4px)}.ds-btn-primary:focus-visible{outline:2px solid var(--chalk, #eeebe4);outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Sekundäre Wege nach außen, z. B. „Das Programm entdecken“.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Das Programm entdecken</a>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;min-height:48px;padding:.75rem 1.25rem;border:1px solid rgb(238 235 228/.34);border-radius:2px;color:var(--chalk, #eeebe4);background:transparent;font:600 1rem/1.15 Archivo,system-ui,sans-serif;text-decoration:none;transition:border-color .25s}.ds-btn-ghost:hover{border-color:var(--chalk, #eeebe4)}.ds-btn-ghost:focus-visible{outline:2px solid var(--chalk, #eeebe4);outline-offset:3px}"
+    },
+    {
+      "name": "Wahlschalter",
+      "kind": "chip",
+      "refersTo": "pick-chip",
+      "description": "Hero-Auswahl einer Welt; gedrückt in der Weltfarbe, isoliert deren Frames.",
+      "html": "<button class=\"ds-pick\" aria-pressed=\"true\" style=\"--world:#b7a1ef\"><span></span>Reformer Pilates</button>",
+      "css": ".ds-pick{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid rgb(238 235 228/.34);border-radius:2px;background:transparent;color:var(--chalk, #eeebe4);font:600 .97rem Archivo,system-ui,sans-serif;cursor:pointer}.ds-pick span{width:10px;height:10px;background:var(--world)}.ds-pick:hover{border-color:var(--chalk, #eeebe4)}.ds-pick[aria-pressed=true]{border-color:var(--world);background:color-mix(in srgb,var(--world) 16%,transparent)}.ds-pick:focus-visible{outline:2px solid var(--chalk, #eeebe4);outline-offset:3px}"
+    },
+    {
+      "name": "Frame",
+      "kind": "custom",
+      "description": "Echtes Foto als nummerierter Frame; entwickelt sich von Graustufen in Farbe.",
+      "html": "<figure class=\"ds-frame\"><div class=\"ds-frame-img\"></div><span class=\"ds-no\">01</span><span class=\"ds-cap\">Reformer-Raum</span></figure>",
+      "css": ".ds-frame{position:relative;margin:0;width:180px;aspect-ratio:3/4;overflow:hidden;background:var(--ground-3, #2e2d32)}.ds-frame-img{position:absolute;inset:0;background:linear-gradient(160deg,#6c5a8f,#2a2433);filter:grayscale(1) brightness(.62);transition:filter .9s cubic-bezier(.16,1,.3,1)}.ds-frame:hover .ds-frame-img{filter:none}.ds-no,.ds-cap{position:absolute;left:0;padding:3px 6px;background:var(--ground, #1a191c);color:var(--chalk, #eeebe4);font:600 .72rem/1.3 Anybody,sans-serif;font-stretch:120%;letter-spacing:.08em;text-transform:uppercase}.ds-no{top:0}.ds-cap{bottom:0}"
+    },
+    {
+      "name": "Tafel-Reiter",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "Kopf einer gestapelten Tafel; bleibt beim Überdecken als Reiter sichtbar.",
+      "html": "<header class=\"ds-bar\" style=\"--world:#efb049\"><h3>Boutique Gym</h3><span><i></i>fokussiert</span></header>",
+      "css": ".ds-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;height:52px;padding:0 24px;background:var(--ground-2, #232226);border:1px solid rgb(238 235 228/.16);color:var(--chalk, #eeebe4)}.ds-bar h3{margin:0;font:800 1.5rem/1 Anybody,sans-serif;font-stretch:118%}.ds-bar span{display:inline-flex;align-items:center;gap:9px;font:400 .92rem Archivo,sans-serif;color:var(--chalk-2, #bdb8ae)}.ds-bar i{width:10px;height:10px;background:var(--world)}"
+    },
+    {
+      "name": "Protokoll-Chip",
+      "kind": "chip",
+      "refersTo": "record-chip-checked",
+      "description": "Auswahl im Anfrage-Protokoll auf Papier; der Haken zeichnet sich.",
+      "html": "<label class=\"ds-chip\"><input type=\"checkbox\" checked><span><svg viewBox=\"0 0 24 24\"><path pathLength=\"1\" d=\"m5 12.5 4.5 4.5L19 7.5\"/></svg>Kurse</span></label>",
+      "css": ".ds-chip{position:relative;display:inline-flex}.ds-chip input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}.ds-chip span{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid rgb(20 19 23/.3);border-radius:2px;background:var(--paper, #f1f0eb);color:var(--ink, #141317);font:600 .95rem Archivo,sans-serif}.ds-chip svg{width:18px;height:18px;padding:1px;border:1.5px solid currentColor;fill:none;stroke:currentColor;stroke-width:2.6;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .3s}.ds-chip input:checked+span{background:var(--ink, #141317);color:var(--paper, #f1f0eb)}.ds-chip input:checked+span svg{stroke-dashoffset:0}.ds-chip input:focus-visible+span{outline:2px solid var(--ink, #141317);outline-offset:3px}"
+    },
+    {
+      "name": "Protokoll-Feld",
+      "kind": "input",
+      "description": "Texteingabe im Anfrage-Protokoll, nur Unterlinie.",
+      "html": "<label class=\"ds-field\"><span>Dein Vorname</span><input type=\"text\"></label>",
+      "css": ".ds-field{display:grid;gap:6px;padding:16px;background:var(--paper, #f1f0eb);color:var(--ink, #141317);font:700 1rem Archivo,sans-serif}.ds-field input{min-height:48px;border:0;border-bottom:1.5px solid var(--ink, #141317);background:transparent;font:500 1.1rem Archivo,sans-serif}.ds-field input:focus-visible{outline:none;border-bottom-color:var(--red-action, #d32f3a);box-shadow:0 1.5px 0 var(--red-action, #d32f3a)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Text-Links; der aktive Abschnitt trägt zwei Sucher-Winkel in Kreide.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Studien</a><a href=\"#\" aria-current=\"true\">Ort</a><a href=\"#\">12 Wochen</a></nav>",
+      "css": ".ds-nav{display:flex;gap:28px;padding:16px 24px;background:var(--ground, #1a191c)}.ds-nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 4px;color:var(--chalk-2, #bdb8ae);font:500 .95rem Archivo,sans-serif;text-decoration:none}.ds-nav a:hover,.ds-nav a[aria-current=true]{color:var(--chalk, #eeebe4)}.ds-nav a[aria-current=true]::before,.ds-nav a[aria-current=true]::after{content:\"\";position:absolute;top:9px;width:6px;height:6px;border:0 solid var(--chalk, #eeebe4)}.ds-nav a[aria-current=true]::before{left:-6px;border-width:1.5px 0 0 1.5px}.ds-nav a[aria-current=true]::after{right:-6px;border-width:1.5px 1.5px 0 0}.ds-nav a:focus-visible{outline:2px solid var(--chalk, #eeebe4);outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Die Bewegungsstudie",
+    "overview": "Die Seite behandelt Lemovi wie eine chronofotografische Studie nach Muybridge und Marey: Ein Graphit-Hintergrund mit kreidefeinem Messraster ist die Wand, vor der alles stattfindet, und echte Fotos aus Greven sind nummerierte Frames auf dieser Wand. Scrollen ist die Zeitachse. Frames liegen zunächst als Silbergelatine (monochrom) da und entwickeln sich in Farbe, sobald sie „im Moment“ sind. Was zurücktritt, fällt wieder ins Grau.\n\nDie Dichte wechselt bewusst: dichte Tafeln (Stapel der drei Welten, 12-Wochen-Platte) wechseln mit ruhigen Flächen auf Barytpapier (Kontaktbogen, Einstieg). Ornament gibt es nicht; jedes grafische Element ist ein Messwerkzeug der Studie: Raster, Randziffern, Frame-Nummern, rote Zeitmarken und Bewegungsspuren.\n\nAbgelehnt sind ausdrücklich der Kategorie-Standard (Athletenfoto vollflächig, Versal-Headline, Kartenreihe) und der Vorgänger-Look aus Glas, Creme und kursiver Serife.",
+    "keyCharacteristics": [
+      "Graphit-Backdrop mit sichtbarem Messraster und Randziffern",
+      "Echte Fotos als nummerierte Frames, monochrom bis zur Belichtung",
+      "Breitenvariable Display-Schrift: Breite drückt Bewegung aus",
+      "Drei Weltfarben aus den echten Räumen, die sich nie mischen",
+      "Lemovi-Rot nur für Bewegungsspuren, Fettstift und die Hauptaktion",
+      "Rechteckige Formen, Haarlinien statt Schatten-Karten"
+    ],
+    "rules": [
+      {
+        "name": "The No-Mix Rule",
+        "body": "Jede Welt besitzt genau eine Farbe. Flieder, Amber und Grün erscheinen nie gemeinsam in einem Element; neutrale Elemente (Erstgespräch, Formular-Chips ohne Welt) bleiben kreide- oder tintenfarben.",
+        "section": "colors"
+      },
+      {
+        "name": "The Red-Means-Motion Rule",
+        "body": "Rot steht nur für Bewegung (Spur, Zeitmarke, Fettstift) oder Handlung (Hauptaktion). Navigation, Fokus und Auswahlzustände sind kreideweiß bzw. tintenfarben.",
+        "section": "colors"
+      },
+      {
+        "name": "The Exposure Rule",
+        "body": "Vollfarbe hat ein Foto nur im Moment: in der Hero-Bildleiste nach der Belichtung, auf der obersten Tafel, auf den markierten Kontaktbogen-Frames und unter dem Cursor. Verdeckte oder nicht gewählte Frames fallen in Graustufen zurück.",
+        "section": "colors"
+      },
+      {
+        "name": "The Width-Is-Motion Rule",
+        "body": "Betonung entsteht durch Breite und Gewicht, nie durch Kursive, Farbverlauf oder zusätzliche Schriften. Die 12 Wochen wachsen in Breite (50 % → 138 %) und Gewicht (300 → 850).",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Kicker Rule",
+        "body": "Über Überschriften stehen keine Labels oder Abschnittsnummern. Nummern gibt es nur dort, wo sie Frames oder Schritte zählen.",
+        "section": "typography"
+      },
+      {
+        "name": "The Overlap-Not-Float Rule",
+        "body": "Schatten gibt es nur, wo ein Blatt wirklich über einem anderen liegt. Keine schwebenden Karten, kein Glas.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do echte Fotos aus Greven als nummerierte Frames zeigen; KI-Motive nur ergänzend mit sichtbarem „KI-Motiv“-Label.",
+      "Do Farbe als Belichtung einsetzen: monochrom → Farbe im Moment, zurück in Grau beim Verdecken.",
+      "Do Breite der Anybody als Betonung nutzen (schmal = Frage, breit = Name).",
+      "Do jede neue Fläche mit Haarlinien und Rasterzellen gliedern, nicht mit Karten.",
+      "Do bei `prefers-reduced-motion` alles farbig, gezeichnet und still zeigen."
+    ],
+    "donts": [
+      "Don't Weltfarben mischen oder Rot für Navigation, Fokus oder Dekoration verwenden.",
+      "Don't Labels, Kicker oder Abschnittsnummern über Überschriften setzen.",
+      "Don't Glas, Unschärfe-Flächen, Verlaufstext oder kursive Akzentschriften einsetzen.",
+      "Don't Fotos dauerhaft in Graustufen ausliefern, wenn JavaScript fehlt: Der Ausgangszustand ist immer farbig.",
+      "Don't Bewertungen, Zahlen oder Leistungsversprechen erfinden."
+    ]
+  }
+}

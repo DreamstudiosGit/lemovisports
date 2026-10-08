@@ -1,8 +1,11 @@
-# Lemovi Sports — lokale Landingpage
+# Lemovi Sports — Landingpage v2.0 „Bewegungsstudie“
 
-Die Startseite liegt in `site/` (Vite + TypeScript, ohne Framework). Die
-Higgsfield-Integration in `index.ts` bleibt unverändert. Es wurde nichts live
-veröffentlicht. Der vorherige Stand ist unter `.local/revisions/v2/` gesichert.
+Die Startseite liegt in `site/` (Vite + TypeScript, ohne Framework). Version 2.0
+ist ein vollständiger Neuentwurf, erarbeitet mit dem Design-Skill
+[pbakaus/impeccable](https://github.com/pbakaus/impeccable): Produktwahrheit in
+`PRODUCT.md`, Richtungsvertrag in `.impeccable/surfaces/site-index-html.md`,
+Designsystem in `DESIGN.md` (+ `.impeccable/design.json`). Es wurde nichts live
+veröffentlicht.
 
 ## Vorschau, Build und Prüfung
 
@@ -17,52 +20,57 @@ npm.cmd run check:browser  # 17 Browserprüfungen; PREVIEW_URL=… für den Buil
 `check:browser` nutzt das installierte Google Chrome über Playwright und legt
 Screenshots sowie `report.json` unter `.local/browser/` ab. Geprüft werden Layout
 und Medien bei 320–1920 px, axe (WCAG 2.2 AA) auf Mobile und Desktop,
-Zielgrößen, Menü mit Fokusfalle, Scrollspy, FAQ, Anfrage-Konfigurator,
-Hero-Video, Scroll-Reveals mit Bewegung, Karussell, Sticky-CTA, Nutzung ohne
-JavaScript, `prefers-reduced-motion` und Zugriffsschutz für Servercode.
+Zielgrößen, Menü mit Fokusfalle, Abschnittsmarkierung, Wahlschalter ↔ Anfrage,
+Anfrage-Protokoll (mailto), Belichtung/Stapel/Spuren, Stapel auf Telefonen,
+Sticky-Leiste, Nutzung ohne JavaScript, `prefers-reduced-motion` und
+Zugriffsschutz für Servercode.
 
-## Seitenaufbau
+## Idee
 
-Seitenverlauf: Aufmerksamkeit → Angebot → Vorteile → Vertrauen → Anfrage.
+Die Seite ist eine **Bewegungsstudie** nach Muybridge und Marey: Ein
+Graphit-Hintergrund mit Messraster ist die Wand, echte Fotos aus Greven sind
+nummerierte Frames davor, und Scrollen ist die Zeitachse. Fotos liegen zunächst
+monochrom da und entwickeln sich in Farbe, sobald sie „im Moment“ sind.
 
-1. **Hero** – Kampagnenfilm, Hauptbotschaft, CTA „Probetraining anfragen“, Glaskarte mit echtem Studiofoto
-2. **Manifest** – Satz mit eingebetteten Bild-Pills, der beim Scrollen aufleuchtet; drei Fakten
-3. **Angebote** – drei gestapelte Bildpanels (Reformer, Gym, Kurse) mit Glaskarten und Preisen
-4. **Kursband** – scrollgekoppeltes Laufband
-5. **Studio** – Rundbogen-Collage echter Fotos, Prinzipien, Beratungsszene
-6. **Bildmoment** – vollflächiges Motiv, das sich beim Scrollen öffnet
-7. **Dein Tempo** – Karussell (Buttons, Tastatur, Ziehen mit der Maus)
-8. **12-Wochen-Programm** – Glaskacheln über Licht-Verläufen
-9. **Einstieg + FAQ** – drei Schritte, native `details`
-10. **Kontakt** – Anfrage-Konfigurator, der eine vorbereitete E-Mail öffnet; Telefon, Mail, Route
+Seitenverlauf: Frage → drei Welten → Ort → Tempo → Begleitung → Einstieg → Anfrage.
 
-Die zentrale Handlung „Probetraining anfragen“ steht im Header, im Hero, im
-mobilen Menü, als mobile Sticky-Leiste und im Kontaktbereich. Der Konfigurator
-überträgt keine Daten; er erzeugt nur einen `mailto:`-Link. Ohne JavaScript
-bleibt ein direkter Mail-Link stehen.
+1. **Hero** – „Was bewegt dich?“; „bewegt“ als Mehrfachbelichtung mit roten
+   Zeitmarken. Drei Wahlschalter (Reformer, Gym, Kurse) isolieren die passenden
+   Frames der Bildleiste und schreiben sich direkt in die Anfrage.
+2. **Studien** – Reformer Pilates, Boutique Gym und Kurse schieben sich beim
+   Scrollen nacheinander übereinander (Wunsch aus v1); verdeckte Tafeln bleiben
+   als Reiter sichtbar und fallen ins Grau. Preise und „… ausprobieren“ je Welt.
+3. **Ort** – Kontaktbogen auf Barytpapier, rote Fettstift-Markierungen um die
+   gewählten Frames; Prinzipien des Studios.
+4. **Tempo** – fünf Motive „Bewegung passt in jedes Leben“ (KI, gekennzeichnet).
+5. **12 Wochen** – zwölf Frames, deren Ziffern in Breite und Gewicht wachsen;
+   eine rote Spur zeichnet sich beim Scrollen.
+6. **Einstieg + FAQ** – drei Schritte auf einer Spur, native `details`.
+7. **Anfrage** – „Protokoll“ auf Papier, das eine vorbereitete E-Mail öffnet;
+   Telefon, Mail, Route.
 
-## Gestaltung
+Die Hauptaktion „Probetraining anfragen“ steht im Header, im Hero, an jeder
+Tafel, im mobilen Menü, als mobile Sticky-Leiste und im Anfragebereich. Das
+Protokoll überträgt keine Daten; es erzeugt nur einen `mailto:`-Link. Ohne
+JavaScript bleibt ein direkter Mail-Link stehen.
 
-- **Farbwelt aus dem echten Studio:** Nachtgrau, Amber (Wandleuchten), Flieder
-  (Deckenlicht), Creme und das Rot des Logos. Rundbögen zitieren die Spiegel.
-- **Typografie:** Bricolage Grotesque (Display), Cormorant Garamond Italic
-  (Akzente), Manrope (Text). Alle Schriften lokal gehostet, Lizenzen in `site/public/fonts/`.
-- **Glas** nur über Bild, Video oder Farbe: Navigation, Hero-Chips/Karte,
-  Angebotskarten, Bildunterschriften, Programmkacheln, Konfigurator, Sticky-Leiste.
-  Fallbacks für fehlendes `backdrop-filter`, `prefers-reduced-transparency`
-  und Forced Colors. Kontrast aller Glasflächen gegen den hellsten realen
-  Hintergrund gemessen: mindestens 5,0 : 1.
-- **Bewegung:** eine Easing-Familie, nur `transform`/`opacity`, kein
-  Scroll-Hijacking, Hero-Eingang unter einer Sekunde. Parallax ist auf
-  Smartphones deaktiviert. Bei `prefers-reduced-motion` ist alles statisch,
-  und das Video startet nur auf Klick.
-- **Performance:** Kritischer Pfad ≈ 24 KB (HTML+CSS+JS, gzip) + 124 KB Schriften
-  + Hero-Bild 29 KB (mobil) / 46 KB (Desktop). Video erst nach `load`, nicht bei
-  Datensparmodus. Gemessen: CLS 0,00–0,01, keine langen Frames beim Scrollen
-  auch mit 4× gedrosselter CPU.
+## Gestaltung (Kurzfassung, Details in `DESIGN.md`)
 
-Styles: `site/src/style.css` importiert `styles/base.css` (Tokens, Typo),
-`glass.css`, `components.css`, `sections.css`, `motion.css`.
+- **Farbe:** Graphit und Kreide; drei Weltfarben aus den echten Räumen, die sich
+  nie mischen (Flieder = Reformer-Deckenlicht, Amber = Gym-Wandleuchten,
+  Grün = Springseil im Kursraum). Lemovi-Rot (aus dem Logo gemessen) nur für
+  Bewegungsspuren, Fettstift und Hauptaktion.
+- **Typografie:** Anybody (Breitenachse 50–150 %) für Fragen, Titel und Labels,
+  Archivo für Text. Beide lokal gehostet (OFL), Lizenzen in `site/public/fonts/`.
+- **Bewegung:** eine Easing-Familie; Hero-Belichtung einmalig beim Laden,
+  Stapel und Spuren scrollgekoppelt, keine Endlosschleifen. Bei
+  `prefers-reduced-motion` ist alles farbig, gezeichnet und still. Ohne
+  JavaScript ist der Ausgangszustand vollständig und farbig.
+- **Formen:** rechteckig wie Fotoplatten (0–2 px), Haarlinien statt Karten,
+  Schatten nur dort, wo ein Blatt über einem anderen liegt.
+
+Styles: `site/src/style.css` importiert `styles/base.css` (Schriften, Tokens,
+Browser-Oberflächen), `components.css`, `sections.css`, `motion.css`.
 Skript: `site/src/main.ts`.
 
 ## Inhalte und Pflegehinweise
@@ -70,35 +78,31 @@ Skript: `site/src/main.ts`.
 - Texte, Kurse, Leistungen und Kontaktdaten stammen von lemovisports.de.
   Keine erfundenen Bewertungen, Zahlen oder Leistungsversprechen.
 - **Preise** (Reformer Single Pass 25 €, 4×/Monat inkl. Gym 74,90 €, lemovi basic
-  24 Monate 34,90 €/Monat, Aufnahmegebühr 49,90 €) sind von der Website übernommen,
-  Stand Oktober 2026. Bei Änderungen in `site/index.html` (Abschnitt „OFFERS“) anpassen.
-- Mit „KI-Motiv“ markierte Bilder sowie der Hero-Film sind KI-generierte
-  Kampagnenmotive; ein Hinweis steht zusätzlich im Footer.
+  24 Monate 34,90 €/Monat, 12 Monate 39,90 €/Monat, Aufnahmegebühr 49,90 €) sind
+  von der Website übernommen, Stand Oktober 2026. Bei Änderungen in
+  `site/index.html` (Abschnitt „Studies“) anpassen.
+- Mit „KI-Motiv“ markierte Bilder sind KI-generierte Kampagnenmotive; ein
+  Hinweis steht zusätzlich im Footer. Alle Fotos der Hero-Bildleiste und des
+  Kontaktbogens sind echt.
 
-## Medien
+## Medien und Herkunft
 
-`npm.cmd run prepare:redesign` (`scripts/prepare-redesign.mjs`) erzeugt die
-zusätzlichen WebP-Varianten und kopiert die Display-Schrift. Ältere Varianten
-stammen aus `prepare:media` und `prepare:campaign`.
+Jede ausgelieferte Rastergrafik trägt ihre Herkunft: KI-Motive den exakten
+Generierungs-Prompt, echte Fotos ihre Quelle (WebP: Datei `<bild>.webp.json`
+daneben, PNG: eingebettet). Prüfen mit
+`impeccable embed-prompt --scan site/public/media` (aus dem Impeccable-Skill).
+Nicht mehr genutzte Medien aus v1 (Kampagnenfilm, Bild-Pills, Bewegungsstudie,
+große Varianten) wurden aus `site/public/` entfernt und liegen in der
+Git-Historie.
 
 | Motiv | Verwendung | Herkunft |
 | --- | --- | --- |
-| Kampagnenfilm / Standbild | Hero | Higgsfield (KI), gekennzeichnet |
-| Reformer-Raum (violettes Licht) | Hero-Karte, Studio-Collage | Echtes Foto, Website |
-| Reformer-Training, Reformer-Detail | Angebot Reformer | Echte Fotos, Website |
-| Frau am Trainingsgerät im Gym | Angebot Gym | Datei `287b6f96-….png` im Projektordner |
-| Seilspringen im Kursraum | Angebot Kurse | Echtes Foto, Website |
-| Spiegel-Triptychon | Studio-Collage | `image-480x480.png` im Projektordner |
-| Beratungsgespräch | Studio | Echtes Foto, Website |
-| Gym mit Wandleuchten | Kontakt-Hintergrund | Echtes Foto, Website |
-| Dehnung vor Backstein (s/w) | Einstieg, Manifest-Pill | Echtes Foto, Website |
-| Hantel-Detail, Faustgruß, Gemeinschaft, Tempo-Motive, Gespräch | Angebote, Bildmoment, Karussell, Programm | Higgsfield (KI), gekennzeichnet |
+| Reformer-Raum, Reformer-Training/-Detail, Gym, Kursraum, Gespräch, Spiegel, Dehnung s/w | Bildleiste, Tafeln, Kontaktbogen | Echte Fotos, Website |
+| Frau im Gym (`287b6f96-….png`) | Bildleiste, Tafel Gym | Echtes Foto; Einwilligung bestätigt (Oktober 2026). Die Rohdatei bleibt lokal, die WebP-Varianten sind im Repo. |
+| Hantel-Detail, Faustgruß, fünf Tempo-Motive | Tafeln Gym/Kurse, Tempo | Higgsfield (KI), gekennzeichnet |
 
-**Bitte prüfen:** Für das Foto der Frau im Gym (`287b6f96-….png`) muss vor der
-Veröffentlichung die Einwilligung der abgebildeten Person vorliegen.
-**Gewünscht für später:** ein kurzer, echter Reformer-Clip aus dem Studio als
-Ersatz für den KI-Kampagnenfilm. Die Dateien `movement-study-*` aus der früheren
-Version werden nicht mehr verwendet.
+**Gewünscht für später:** ein kurzer, echter Bewegungsclip aus dem Studio; daraus
+ließe sich eine echte chronofotografische Bildfolge für die Tafeln gewinnen.
 
 ## Sichere Higgsfield-Ergänzung
 
@@ -109,11 +113,10 @@ SDK und die dokumentierten Modelle. Es lädt `HF_CREDENTIALS` aus der bestehende
 zum Dev-Server. Nicht erneut ausführen, wenn nur eine Vorschau benötigt wird.
 
 Die erfolgreichen generierten Originale, sichere Auftragsmetadaten und Prompts
-liegen in `.local/generated/`. `.local/`, `.env*` und `dist/` sind ignoriert.
-Vite bedient nur `site/`, lädt keine Projekt-Umgebungsdateien und blockiert
-Zugriffe auf Servercode sowie vertrauliche Dateien. Das Frontend enthält weder
-das Higgsfield-SDK noch Zugangsdaten. Der Build wurde auf die hinterlegten
-Credential-Werte geprüft.
+liegen in `.local/generated/` bzw. `.local/campaign-v2/`. `.local/`, `.env*` und
+`dist/` sind ignoriert. Vite bedient nur `site/`, lädt keine
+Projekt-Umgebungsdateien und blockiert Zugriffe auf Servercode sowie vertrauliche
+Dateien. Das Frontend enthält weder das Higgsfield-SDK noch Zugangsdaten.
 
 ## Ursprüngliches Seedance-2.5-Beispiel
 

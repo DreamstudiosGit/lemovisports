@@ -48,9 +48,7 @@ for (const [name, source, left, top, width] of pills) {
   report.push({ file: `${name}.webp`, bytes: (await stat(target)).size, generated: false });
 }
 
-const bricolage = 'node_modules/@fontsource-variable/bricolage-grotesque/';
-await copyFile(file(`${bricolage}files/bricolage-grotesque-latin-wdth-normal.woff2`), `${fonts}bricolage-latin.woff2`);
-await copyFile(file(`${bricolage}LICENSE`), `${fonts}bricolage-LICENSE.txt`);
+// Fonts for v2 are copied by prepare-media.mjs.
 
 await mkdir(file('.local/'), { recursive: true });
 await writeFile(file('.local/redesign-media.json'), JSON.stringify(report, null, 2));

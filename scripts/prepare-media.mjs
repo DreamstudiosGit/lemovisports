@@ -36,8 +36,9 @@ try {
 
 const fonts = new URL('../site/public/fonts/', import.meta.url);
 await mkdir(fonts, { recursive: true });
-await copyFile(new URL('../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2', import.meta.url), new URL('manrope-latin.woff2', fonts));
-await copyFile(new URL('../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff2', import.meta.url), new URL('cormorant-italic-latin.woff2', fonts));
-await copyFile(new URL('../node_modules/@fontsource-variable/manrope/LICENSE', import.meta.url), new URL('manrope-LICENSE.txt', fonts));
-await copyFile(new URL('../node_modules/@fontsource/cormorant-garamond/LICENSE', import.meta.url), new URL('cormorant-LICENSE.txt', fonts));
+// v2 typefaces (OFL): Anybody for display widths, Archivo for text.
+await copyFile(new URL('../node_modules/@fontsource-variable/anybody/files/anybody-latin-wdth-normal.woff2', import.meta.url), new URL('anybody-latin.woff2', fonts));
+await copyFile(new URL('../node_modules/@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2', import.meta.url), new URL('archivo-latin.woff2', fonts));
+await copyFile(new URL('../node_modules/@fontsource-variable/anybody/LICENSE', import.meta.url), new URL('anybody-LICENSE.txt', fonts));
+await copyFile(new URL('../node_modules/@fontsource-variable/archivo/LICENSE', import.meta.url), new URL('archivo-LICENSE.txt', fonts));
 await writeFile(new URL('../.local/media-inventory.json', import.meta.url), JSON.stringify(inventory, null, 2));

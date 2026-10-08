@@ -1,47 +1,71 @@
-/* Motion system: one easing family, short durations, transform + opacity only.
-   Everything below is opt-in: no-preference for motion, and the reveal state
-   only applies once main.ts has confirmed it can reveal (html.reveal-on). */
-@media (prefers-reduced-motion: no-preference) {
-  /* Hero entrance – complete within about one second. */
-  .js .hero-media { animation: hero-settle 2.4s var(--ease-out) both; }
-  .js .hero-kicker, .js .hero-lead, .js .hero-actions, .js .hero-card, .js .hero-foot { animation: rise 1s var(--ease-out) both; }
-  .js .hero h1 .line > span { animation: line-up 1.05s var(--ease-out) both; }
-  .js .hero-kicker { animation-delay: 0.05s; }
-  .js .hero h1 .line:first-child > span { animation-delay: 0.12s; }
-  .js .hero h1 .line:last-child > span { animation-delay: 0.24s; }
-  .js .hero-lead { animation-delay: 0.42s; }
-  .js .hero-actions { animation-delay: 0.52s; }
-  .js .hero-card { animation-delay: 0.7s; }
-  .js .hero-foot { animation-delay: 0.8s; }
+/* Motion grammar: exposure. One easing family, content visible by default.
+   Every state below only applies once the script has confirmed motion is
+   welcome (html.motion-ok); without it the page is complete and in colour. */
 
-  .pulse::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--red); animation: ping 2.4s var(--ease-out) 1s 5; }
-  .scroll-cue span { animation: cue 2.2s var(--ease-in-out) 1.4s 6; }
-  .program.is-active .program-glow span { animation: drift 18s var(--ease-in-out) infinite alternate; }
-  .program.is-active .program-glow span:nth-child(2) { animation-duration: 22s; animation-direction: alternate-reverse; }
-  .program.is-active .program-glow span:nth-child(3) { animation-duration: 26s; }
+/* ---------- The headline fires as a multiple exposure ---------- */
+.motion-ok .ht-move:not(.is-exposed) .ht-ghost { opacity: 0; }
+.motion-ok .ht-move:not(.is-exposed) .ht-word {
+  font-stretch: 55%;
+  transform: translateX(calc(-4 * var(--step)));
+}
+.motion-ok .ht-move:not(.is-exposed) .ht-trace path { stroke-dashoffset: var(--k, 3); }
+.motion-ok .ht-word { transition: font-stretch 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+.motion-ok .ht-ghost { transition: opacity 0.12s linear; }
+.motion-ok .ht-ghost:nth-child(2) { transition-delay: 0.05s; }
+.motion-ok .ht-ghost:nth-child(3) { transition-delay: 0.12s; }
+.motion-ok .ht-ghost:nth-child(4) { transition-delay: 0.24s; }
+.motion-ok .ht-trace path { transition: stroke-dashoffset 0.9s var(--ease-out); }
 
-  /* Scroll reveals */
-  .reveal-on [data-reveal] {
-    opacity: 0;
-    transform: translate3d(0, 32px, 0);
-    transition: opacity 0.9s var(--ease-out), transform 1.1s var(--ease-out);
-    transition-delay: calc(var(--d, 0) * 1ms);
+/* ---------- Frames develop from silver gelatin into colour ---------- */
+.motion-ok .strip:not(.is-developed) .frame img { filter: grayscale(1) brightness(0.62) contrast(1.08); }
+.motion-ok .strip .frame img { transition: filter 0.9s var(--ease-out) calc(var(--n, 0) * 80ms + 0.35s); }
+.motion-ok .strip.is-filtering .frame img { transition-delay: 0s; }
+
+.motion-ok [data-develop]:not(.is-developed) img { filter: grayscale(1) brightness(0.7) contrast(1.06); }
+.motion-ok [data-develop] img { transition: filter 1.1s var(--ease-out) var(--delay, 0s); }
+
+/* Stacked plates: covered plates fall back into silver and shade. */
+.motion-ok .plate.is-covered [data-develop] img { filter: grayscale(1) brightness(0.7); transition-delay: 0s; }
+.motion-ok .plate-inner { transform: scale(calc(1 - var(--cover, 0) * 0.045)); }
+.motion-ok .plate-shade { opacity: calc(var(--cover, 0) * 0.58); }
+
+/* Contact sheet: only the picks are printed in colour; the rest develop
+   while you look at them. */
+.motion-ok .sheet-frame:not(.is-picked) img { filter: grayscale(1) contrast(1.08); transition: filter 0.6s var(--ease-out); }
+.motion-ok .sheet-frame.is-picked img { transition: filter 1.1s var(--ease-out) 0.2s; }
+@media (hover: hover) {
+  .motion-ok .sheet-frame:not(.is-picked):hover img { filter: none; }
+}
+.motion-ok .sheet:not(.is-marked) .grease path { stroke-dashoffset: var(--k, 3); }
+.motion-ok .grease path { transition: stroke-dashoffset 1s var(--ease-in-out); }
+.motion-ok .film + .film .grease path { transition-delay: 0.5s; }
+
+/* Tempo row: a sequence, frame by frame. */
+.motion-ok .tempo-row .tframe:nth-child(2) { --delay: 0.14s; }
+.motion-ok .tempo-row .tframe:nth-child(3) { --delay: 0.28s; }
+.motion-ok .tempo-row .tframe:nth-child(4) { --delay: 0.42s; }
+.motion-ok .tempo-row .tframe:nth-child(5) { --delay: 0.56s; }
+
+/* ---------- Traces draw with the scroll ----------
+   Dash lengths use --k, the measured ratio between on-screen and drawn path
+   length (the SVGs stretch non-uniformly), so 1 always means the whole line. */
+.motion-ok [data-trace] .trace path { stroke-dashoffset: calc(var(--k, 3) * (1 - var(--p, 0))); }
+.motion-ok .weeks-frames li::before { transform: scale(var(--dot, 0)); transition: transform 0.35s var(--ease-out); }
+.motion-ok .weeks-frames li.is-reached::before { --dot: 1; }
+/* A phase number is only an outline until the trace reaches it. */
+.motion-ok .phase-no { transition: color 0.5s var(--ease-out); -webkit-text-stroke: 1.5px var(--red-action); }
+.motion-ok .phases:not(.is-done) .phase-list li:not(.is-reached) .phase-no { color: transparent; }
+
+/* ---------- Details open softly where the browser can animate them ---------- */
+@supports selector(::details-content) {
+  .motion-ok .faq-list details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition: block-size 0.45s var(--ease-out), content-visibility 0.45s allow-discrete;
   }
-  .reveal-on [data-reveal='image'] { transform: translate3d(0, 48px, 0) scale(0.94); transition-duration: 1s, 1.4s; }
-  .reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
-
-  /* Gentle answer open/close where the browser supports it. */
-  .faq-list details::details-content { block-size: 0; overflow: clip; transition: block-size 0.5s var(--ease-out), content-visibility 0.5s allow-discrete; }
-  .faq-list details[open]::details-content { block-size: auto; }
+  .motion-ok .faq-list details[open]::details-content { block-size: auto; }
 }
 
-@keyframes rise { from { opacity: 0; transform: translate3d(0, 24px, 0); } to { opacity: 1; transform: none; } }
-@keyframes line-up { from { transform: translate3d(0, 105%, 0); } to { transform: none; } }
-@keyframes hero-settle { from { transform: scale(1.08); } to { transform: none; } }
-@keyframes ping { 0% { transform: scale(1); opacity: 0.7; } 80%, 100% { transform: scale(3.2); opacity: 0; } }
-@keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(16px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
-@keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(6vw, 4vw, 0) scale(1.15); } }
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; transition-delay: 0s !important; animation-duration: 0.01ms !important; }
 }

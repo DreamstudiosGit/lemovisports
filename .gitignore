@@ -7,7 +7,11 @@ dist/
 test-results/
 playwright-report/
 
-# Foto einer erkennbaren Person: erst nach geklärter Einwilligung veröffentlichen
+# Rohdatei des Gym-Fotos bleibt lokal; die Einwilligung liegt vor (Oktober 2026),
+# die für die Seite erzeugten WebP-Varianten sind deshalb Teil des Repos.
 287b6f96-367b-4c12-91b4-262497134258.png
-site/public/media/gym-portrait-*.webp
 Textdokument*.txt
+
+# Review captures are local evidence, not source
+.impeccable/review/
+.impeccable/mocks/

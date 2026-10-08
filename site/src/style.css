@@ -1,7 +1,6 @@
-/* Lemovi Sports landing page. Partials, in cascade order:
-   base (tokens, type) → glass (material) → components → sections → motion */
+/* Lemovi Sports v2 · "Bewegungsstudie". Partials, in cascade order:
+   base (fonts, tokens, type, browser surfaces) → components → sections → motion */
 @import './styles/base.css';
-@import './styles/glass.css';
 @import './styles/components.css';
 @import './styles/sections.css';
 @import './styles/motion.css';
