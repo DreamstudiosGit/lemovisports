@@ -1,0 +1,134 @@
+/* Fonts are self-hosted (OFL); licences live next to the files in /fonts. */
+@font-face { font-family: Bricolage; src: url('/fonts/bricolage-latin.woff2') format('woff2'); font-weight: 200 800; font-stretch: 75% 100%; font-display: swap; }
+@font-face { font-family: Manrope; src: url('/fonts/manrope-latin.woff2') format('woff2'); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: Cormorant; src: url('/fonts/cormorant-italic-latin.woff2') format('woff2'); font-style: italic; font-weight: 500; font-display: swap; }
+
+/* Palette drawn from the real studio: night walls, amber wall lights,
+   lilac ceiling light, warm cream and the Lemovi red of the logo. */
+:root {
+  --night: #100d0f;
+  --night-2: #1a1518;
+  --cream: #f4eee6;
+  --sand: #e7ddcf;
+  --ink: #17120f;
+  --ink-soft: #5f564e;
+  --red: #ef4152;
+  --red-deep: #c62338;
+  --red-hover: #d42b3e;
+  --amber: #f4b46e;
+  --amber-light: #ffd9a8;
+  --lilac: #a48ee6;
+  --on-dark: #f4eee6;
+  --on-dark-soft: rgb(244 238 230 / 0.78);
+  --line-dark: rgb(255 255 255 / 0.14);
+  --line-light: rgb(23 18 15 / 0.14);
+  --focus: var(--amber-light);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --gutter: clamp(16px, 4vw, 56px);
+  --shell: min(100% - 2 * var(--gutter), 1320px);
+  --header-h: 76px;
+
+  --font-display: Bricolage, 'Arial Narrow', system-ui, sans-serif;
+  --font-body: Manrope, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-accent: Cormorant, Georgia, 'Times New Roman', serif;
+
+  color-scheme: dark;
+  font-family: var(--font-body);
+  font-size: 100%;
+  line-height: 1.6;
+  color: var(--on-dark);
+  background: var(--cream);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  interpolate-size: allow-keywords;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: 96px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; min-width: 320px; }
+body.menu-open { overflow: hidden; }
+main, .site-footer { overflow-x: clip; }
+img, video { display: block; max-width: 100%; }
+img { height: auto; }
+svg { display: block; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a, button, summary, label { -webkit-tap-highlight-color: transparent; }
+h1, h2, h3, p, figure, dl, dd { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+::selection { background: var(--red); color: #fff; }
+[hidden] { display: none !important; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+.light { --focus: var(--ink); color: var(--ink); }
+
+.svg-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.icon { width: 20px; height: 20px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.icon-xs { width: 14px; height: 14px; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 14px 20px; border-radius: 12px; background: var(--cream); color: var(--ink); font-weight: 700; transform: translateY(-200%); transition: transform 0.2s; }
+.skip-link:focus { transform: none; }
+.shell { width: var(--shell); margin-inline: auto; }
+
+/* Typography */
+.display, .offer-card h3, .footer-claim, .manifesto-text {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-stretch: 80%;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+.display em, .footer-claim em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.1em;
+  letter-spacing: -0.02em;
+  line-height: 0.8;
+  padding-right: 0.06em;
+}
+.display-1 { font-size: clamp(3.1rem, 1.2rem + 6.6vw, 8.6rem); }
+.display-2 { font-size: clamp(2.6rem, 1.3rem + 4.6vw, 6.4rem); }
+.display-3 { font-size: clamp(2.2rem, 1.2rem + 3.2vw, 4.6rem); }
+
+/* Accent words glow like the studio's amber wall lights on dark ground. */
+.dark .display em, .hero .display em, .footer-claim em {
+  background: linear-gradient(100deg, var(--amber-light) 0%, var(--amber) 45%, #f08a7c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.light .display em { color: var(--red-deep); }
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.eyebrow .num {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.4rem;
+  height: 1.6rem;
+  padding-inline: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+@media (forced-colors: active) {
+  .dark .display em, .hero .display em, .footer-claim em { background: none; color: CanvasText; }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "lemovisports.de",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "tsx index.ts",
+    "generate:media": "tsx scripts/generate-media.ts",
+    "generate:campaign": "tsx scripts/generate-campaign.ts",
+    "prepare:media": "node scripts/prepare-media.mjs",
+    "prepare:campaign": "node scripts/prepare-campaign.mjs",
+    "prepare:redesign": "node scripts/prepare-redesign.mjs",
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "check:browser": "node scripts/check-browser.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@higgsfield/client": "^0.2.6",
+    "dotenv": "^18.0.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.4",
+    "sharp": "^0.35.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^7.3.6"
+  }
+}

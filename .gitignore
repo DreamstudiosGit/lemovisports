@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+.local/
+test-results/
+playwright-report/
+
+# Foto einer erkennbaren Person: erst nach geklärter Einwilligung veröffentlichen
+287b6f96-367b-4c12-91b4-262497134258.png
+site/public/media/gym-portrait-*.webp
+Textdokument*.txt
